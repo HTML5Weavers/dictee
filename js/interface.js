@@ -43,8 +43,17 @@ var position = 0;
  * Gestion effective des données de la dictée
  */
 var dictee = new oDictee();
-// On charge les données de cet exercice à partir du fichier data.json
-	$.getJSON('data.json', function(data) {
+// On charge les données de cet exercice à partir du fichier #.json
+// Le paramètre # est passé par l'URL et son paramètre : numero
+
+// On récupère le paramètre : numero
+function obtenirParametre (sVar) {
+  return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(sVar).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+}
+
+var numero = obtenirParametre("numero");
+
+	$.getJSON('json/' + numero + '.json', function(data) {
 		if(data.app_name == "jDicto"){
 			dictee.prof = data.prof;
 			dictee.titre = data.titre;
